@@ -8,3 +8,25 @@ RUN apk --no-cache add ca-certificates
 WORKDIR /root/
 COPY --from=builder /app/bin/hello /usr/local/bin/
 CMD ["hello"]
+
+RUN apk add --no-cache ca-certificates libstdc++ su-exec
+RUN set -eux; \
+    addgroup -g 9987 ts3server; \
+    adduser -u 9987 -Hh /var/ts3server -G ts3server -s /sbin/nologin -D ts3server; \
+    install -d -o ts3server -g ts3server -m 775 /var/ts3server /var/run/ts3server /opt/ts3server
+
+ENV PATH "${PATH}:/opt/ts3server"
+
+ARG TEAMSPEAK_CHECKSUM=b1d5876854992bf9f5d7bc6b12be71bee9bfe90185b78c74bc50ed5a02f360a2
+ARG TEAMSPEAK_URL=https://files.teamspeak-services.com/releases/server/3.12.1/teamspeak3-server_linux_alpine-3.12.1.tar.bz2
+
+RUN set -eux; \
+    apk add --no-cache --virtual .fetch-deps tar; \
+    wget "${TEAMSPEAK_URL}" -O server.tar.bz2; \
+    echo "${TEAMSPEAK_CHECKSUM} *server.tar.bz2" | sha256sum -c -; \
+    mkdir -p /opt/ts3server; \
+    tar -xf server.tar.bz2 --strip-components=1 -C /opt/ts3server; \
+    rm server.tar.bz2; \
+    apk del .fetch-deps; \
+    mv /opt/ts3server/*.so /opt/ts3server/redist/* /usr/local/lib; \
+    ldconfig /usr/local/lib
