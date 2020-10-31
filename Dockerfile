@@ -30,3 +30,17 @@ RUN set -eux; \
     apk del .fetch-deps; \
     mv /opt/ts3server/*.so /opt/ts3server/redist/* /usr/local/lib; \
     ldconfig /usr/local/lib
+    
+# setup directory where user data is stored
+VOLUME /var/ts3server/
+WORKDIR /var/ts3server/
+
+#  9987 default voice
+# 10011 server query
+# 30033 file transport
+EXPOSE 9987/udp 10011 30033 
+
+COPY entrypoint.sh /opt/ts3server
+
+ENTRYPOINT [ "entrypoint.sh" ]
+CMD [ "ts3server" ]
