@@ -1,8 +1,8 @@
 spec:
-  name: sample-dockerfile
+  name: teamspeak3-server
   services:
   - dockerfile_path: Dockerfile
     git:
       branch: main
-      repo_clone_url: https://github.com/digitalocean/sample-dockerfile.git
-    name: sample-dockerfile
+      repo_clone_url: https://github.com/TeamSpeak-Systems/teamspeak-linux-docker-images.git
+    name: teamspeak3-server
