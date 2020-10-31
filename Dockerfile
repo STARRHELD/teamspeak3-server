@@ -40,10 +40,10 @@ WORKDIR /var/ts3server/
 # 30033 file transport
 EXPOSE 9987/udp 10011 30033 
 
-COPY entrypoint.sh /opt/ts3server
+#COPY entrypoint.sh /opt/ts3server
 
-RUN chmod 777 /opt/ts3server/entrypoint.sh \
-    && ln -s /opt/ts3server/entrypoint.sh /
+#RUN chmod 777 /opt/ts3server/entrypoint.sh \
+#    && ln -s /opt/ts3server/entrypoint.sh /
     
-ENTRYPOINT [ "entrypoint.sh" ]
-CMD [ "ts3server" ]
+#ENTRYPOINT [ "entrypoint.sh" ]
+#CMD [ "ts3server" ]
