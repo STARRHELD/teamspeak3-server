@@ -42,8 +42,8 @@ EXPOSE 9987/udp 10011 30033
 
 COPY entrypoint.sh /opt/ts3server
 
-RUN chmod 777 /usr/local/bin/entrypoint.sh \
-    && ln -s /usr/local/bin/entrypoint.sh /
+RUN chmod 777 /opt/ts3server/entrypoint.sh \
+    && ln -s /opt/ts3server/entrypoint.sh /
     
-ENTRYPOINT [ "./entrypoint.sh" ]
+ENTRYPOINT [ "entrypoint.sh" ]
 CMD [ "ts3server" ]
