@@ -40,7 +40,7 @@ WORKDIR /var/ts3server/
 # 30033 file transport
 EXPOSE 9987/udp 10011 30033 
 
-COPY entrypoint.sh /opt/ts3server
+COPY ./entrypoint.sh /opt/ts3server
 
 ENTRYPOINT [ "./entrypoint.sh" ]
 CMD [ "ts3server" ]
