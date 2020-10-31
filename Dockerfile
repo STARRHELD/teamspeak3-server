@@ -42,8 +42,8 @@ EXPOSE 9987/udp 10011 30033
 
 COPY entrypoint.sh /opt/ts3server
 
-RUN chmod 777 /usr/local/bin/docker-entrypoint.sh \
-    && ln -s /usr/local/bin/docker-entrypoint.sh /
+RUN chmod 777 /usr/local/bin/entrypoint.sh \
+    && ln -s /usr/local/bin/entrypoint.sh /
     
 ENTRYPOINT [ "./entrypoint.sh" ]
 CMD [ "ts3server" ]
